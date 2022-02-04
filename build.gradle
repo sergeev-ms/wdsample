@@ -1,0 +1,62 @@
+plugins {
+    id 'io.jmix' version '1.1.4'
+    id 'org.jetbrains.kotlin.jvm' version '1.6.10'
+    id 'java'
+    id 'idea'
+}
+
+apply plugin: 'org.springframework.boot'
+
+jmix {
+    bomVersion = '1.1.3'
+    projectId = 'wds'
+}
+
+group = 'ru.sms'
+version = '0.0.1-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://global.repo.jmix.io/repository/public'
+    }
+    maven {
+        url 'https://milton.io/maven/'
+    }
+}
+
+dependencies {
+    implementation 'io.jmix.core:jmix-core-starter'
+    implementation 'io.jmix.data:jmix-eclipselink-starter'
+    implementation 'io.jmix.ui:jmix-ui-starter'
+    implementation 'io.jmix.ui:jmix-ui-data-starter'
+    implementation 'io.jmix.ui:jmix-ui-themes-compiled'
+    implementation 'io.jmix.ui:jmix-ui-widgets-compiled'
+    implementation 'io.jmix.security:jmix-security-starter'
+    implementation 'io.jmix.security:jmix-security-ui-starter'
+    implementation 'io.jmix.security:jmix-security-data-starter'
+    implementation 'io.jmix.localfs:jmix-localfs-starter'
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    implementation 'io.milton:milton-server-ce:3.1.1.413'
+
+    runtimeOnly 'org.hsqldb:hsqldb'
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
+
+
+
+idea {
+    module {
+        downloadSources = true
+        downloadJavadoc = true
+    }
+}
