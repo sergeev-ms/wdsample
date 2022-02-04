@@ -1,18 +1,17 @@
 package ru.sms.wdsample.webdav.model
 
 import io.milton.annotations.*
-
+import java.io.InputStream
 import java.util.*
 
 
-class WebDavFile(private var name: String, private var bytes: ByteArray) {
-    private var createdDate: Date = Date()
-    private var modifiedDate: Date = Date()
-    private var contentLength: Long? = null
-
-    init {
-        this.contentLength = bytes.size.toLong()
-    }
+class WebDavFile(private var name: String, private var id: String, var inputStream: InputStream) {
+    var createdDate: Date? = Date()
+        @CreatedDate
+        get
+    var modifiedDate: Date? = Date()
+        @ModifiedDate
+        get
 
 
     @Name
@@ -22,29 +21,11 @@ class WebDavFile(private var name: String, private var bytes: ByteArray) {
 
     @UniqueId
     fun getUniqueId(): String {
-        return name
-    }
-
-    @ModifiedDate
-    fun getModifiedDate(): Date {
-        return modifiedDate
-    }
-
-    @CreatedDate
-    fun getCreatedDate(): Date {
-        return createdDate
+        return id
     }
 
     @ContentLength
     fun getContentLength(): Long {
-        return bytes.size.toLong()
-    }
-
-    fun getBytes(): ByteArray {
-        return bytes
-    }
-
-    fun setBytes(bytes: ByteArray) {
-        this.bytes = bytes
+        return inputStream.available().toLong()
     }
 }
